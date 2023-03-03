@@ -1,3 +1,11 @@
+#La sequenza di operazioni da svolgere per gestire un socket TCP è:
+#creazione del socket;
+#assegnazione dell'indirizzo;
+#connessione o attesa di connessione;
+#invio o ricezione dei dati;
+#chiusura del socket.
+
+
 import socket
 from threading import Thread
 def get_key(val,dizioIPNome): 
@@ -46,12 +54,12 @@ class MyThread(Thread):
 thread,dizio,dizioIPNome = [],{},letturaFilePerIP()
 def main():
     s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-    s.bind(("0.0.0.0",5000))
-    s.listen()
+    s.bind(("0.0.0.0",5000)) #La funzione per l'assegnazione di un indirizzo ad un socket
+    s.listen() #pone il socket in attesa di una connessione;
 
     while 1:
         print("In attesa di conessione...")
-        connection,address = s.accept()
+        connection,address = s.accept() #accetta una connessione sul socket
         if get_key(address[0],dizioIPNome) != None:
             print(f"{get_key(address[0],dizioIPNome)},{address[0]} sono connesso")
             dizio[address[0]] = connection
